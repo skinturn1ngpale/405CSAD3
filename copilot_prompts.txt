@@ -1,0 +1,53 @@
+=== Етап 1 ===
+
+Запит 1:
+Create a minimal C++ main.cpp that prints "Hello, World!" and returns 0
+Результат: Added main.cpp. It compiles cleanly and prints Hello, World!, then returns 0.
+
+Запит 2:
+Create a README.md with: full name Бахур Владислав Павлович, group КІ-405, variant 3
+Результат: Updated README.md with the full name Бахур Владислав Павлович, group КІ-405, and variant 3.
+
+Запит 3:
+Create a .gitignore for a C++/CMake project that ignores the build/ directory
+Результат: Created .gitignore with the build/ rule, common CMake-generated files, and compiled C++ artifacts. Verified that paths under build/ are ignored.
+
+=== Етап 2 ===
+
+Запит 1:Generate the content of the root CMakeLists.txt: cmake_minimum_required 3.14 or higher, project "hello" (C++), C++17 standard required, an executable target named "hello" built from main.cpp. It must work on Linux, macOS and Windows (MSVC).
+Результат: Added the root CMakeLists.txt with CMake 3.14 minimum, project hello, required C++17, and executable target hello from main.cpp. The configuration uses no platform-specific flags.
+
+I couldn’t run CMake validation because CMake isn’t installed in this environment. Also, main.cpp is currently absent from the worktree, so the target cannot configure until that source file is present.
+
+=== Етап 3 ===
+
+Запит 1: Create math_operations.h with the declaration int add(int a, int b); and #pragma once
+Результат: Added #pragma once and int add(int a, int b); to math_operations.h.
+
+Запит 2: Create math_operations.cpp implementing add() declared in math_operations.h
+Результат: Implemented add() in math_operations.cpp, including its header and returning a + b. The source compiled successfully with C++17 and warnings enabled.
+
+Запит 3: Create tests/unit_tests.cpp with Google Test tests for add(): a test named BasicAddition, plus tests for negative numbers, zero and large values
+Результат: Created unit_tests.cpp with Google Test cases for BasicAddition, negative numbers, zero, and large values near the int limits.
+I couldn’t compile or run the tests because Google Test headers aren’t installed in this environment.
+
+Запит 4: Update CMakeLists.txt: put math_operations.cpp into a static library target and link it to hello. Add Google Test via FetchContent (pin a stable release tag) with gtest_force_shared_crt ON for MSVC. Enable testing, add an executable unit_tests from tests/unit_tests.cpp, link it with the library and GTest::gtest_main, and register tests with gtest_discover_tests so CTest can find them.
+Результат: Updated CMakeLists.txt with a static math_operations library, linked it to hello and unit_tests, and added Google Test v1.16.0 via FetchContent with the MSVC CRT setting. CTest is enabled and discovers tests with gtest_discover_tests.
+CMake configuration and build succeeded; all 4 tests passed under CTest.
+
+=== Етап 4 ===
+
+Запит 1: Create ci.sh (bash, set -euo pipefail) that: creates the build directory (mkdir -p build), cd build, configures with cmake .. -DCMAKE_BUILD_TYPE=Release, builds with cmake --build . --config Release, then runs tests with ctest -C Release --output-on-failure. It must work on Linux, macOS and Windows (Git Bash with MSVC). It must run without any parameters.
+Результат: Created executable ci.sh with the requested parameterless configure, build, and CTest steps. It anchors itself to the repository directory, so it can be launched from elsewhere.
+bash -n passed, and running ci.sh built the project and passed all 4 tests.
+
+=== Етап 5 ===
+
+Запит 1: Create a GitHub Actions workflow named CI Build. Triggers: push and pull_request on branches matching '**develop**' and '**master**'. One job named cross_build with strategy fail-fast: false and a matrix over ubuntu-latest, windows-latest, macos-latest (runs-on: ${{ matrix.os }}). Steps: actions/checkout@v4; a step to set up CMake; a step "Build" that runs ./ci.sh with shell: bash; a separate step named "Run Unit Tests" that runs ctest -C Release --output-on-failure in the build directory with shell: bash; a "Deploy" step using actions/upload-artifact@v4 that uploads the hello executable (build/hello on Linux and macOS, build/Release/hello.exe on Windows), artifact name hello-${{ matrix.os }}, if-no-files-found: error.
+Результат: Created ci_build.yml with the requested triggers, cross-platform build matrix, CMake setup, build and test steps, and OS-specific artifact paths.
+The editor reports no YAML errors. actionlint was unavailable, so I couldn’t run that workflow-specific validator.
+
+=== Етап 5 - Виправлення ===
+
+Запит 1: GitHub Actions reports "You have an error in your yaml syntax on line 4" for .github/workflows/ci_build.yml. Fix the YAML syntax. Branch patterns like '**develop**' and '**master**' must be quoted strings.
+Результат: Fixed the YAML indentation in ci_build.yml by replacing tabs with spaces. The branch patterns remain quoted. Ruby’s YAML parser now reports YAML syntax OK.
