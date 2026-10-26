@@ -1,0 +1,44 @@
+name: CI Build
+
+on:
+  push:
+    branches:
+      - '**develop**'
+      - '**master**'
+  pull_request:
+    branches:
+      - '**develop**'
+      - '**master**'
+
+jobs:
+
+  cross_build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Build
+        run: ./ci.sh
+        shell: bash
+
+      - name: Run Unit Tests
+        run: ctest -C Release --output-on-failure
+        working-directory: build
+        shell: bash
+
+      - name: Deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-${{ matrix.os }}
+          path: ${{ matrix.os == 'windows-latest' && 'build/Release/hello.exe' || 'build/hello' }}
+          if-no-files-found: error
