@@ -1,0 +1,86 @@
+
+3. Printing statistics.
+
+=== spi_clk_gen_6_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e ===
+
+   Number of wires:                 16
+   Number of wire bits:             28
+   Number of public wires:          16
+   Number of public wire bits:      28
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 15
+     SB_CARRY                        1
+     SB_DFFESR                       1
+     SB_DFFSR                        3
+     SB_LUT4                        10
+
+=== spi_master ===
+
+   Number of wires:                 16
+   Number of wire bits:             30
+   Number of public wires:          16
+   Number of public wire bits:      30
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     spi_clk_gen_6_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e      1
+     spi_master_rx_8                 1
+     spi_master_tx_6_8_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e      1
+
+=== spi_master_rx_8 ===
+
+   Number of wires:                 22
+   Number of wire bits:             51
+   Number of public wires:          22
+   Number of public wire bits:      51
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 31
+     SB_CARRY                        1
+     SB_DFF                          2
+     SB_DFFESR                      18
+     SB_DFFSR                        1
+     SB_LUT4                         9
+
+=== spi_master_tx_6_8_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e ===
+
+   Number of wires:                 62
+   Number of wire bits:            141
+   Number of public wires:          62
+   Number of public wire bits:     141
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 55
+     SB_CARRY                        2
+     SB_DFFESR                      16
+     SB_DFFESS                       1
+     SB_DFFSR                        1
+     SB_LUT4                        35
+
+=== design hierarchy ===
+
+   spi_master                        1
+     spi_clk_gen_6_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e      1
+     spi_master_rx_8                 1
+     spi_master_tx_6_8_c4ea21bb365bbeeaf5f2c654883e56d11e43c44e      1
+
+   Number of wires:                116
+   Number of wire bits:            250
+   Number of public wires:         116
+   Number of public wire bits:     250
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                101
+     SB_CARRY                        4
+     SB_DFF                          2
+     SB_DFFESR                      35
+     SB_DFFESS                       1
+     SB_DFFSR                        5
+     SB_LUT4                        54
+
