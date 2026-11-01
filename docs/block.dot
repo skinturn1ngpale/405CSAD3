@@ -1,0 +1,21 @@
+digraph blk {
+  rankdir=TB; bgcolor="white"; nodesep=0.5; ranksep=0.8;
+  node [fontname="DejaVu Sans", fontsize=17, shape=box, style="rounded,filled", fillcolor="#e8f0fe", color="#1a4f8b", penwidth=1.6, margin="0.15,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=14, color="#333333", penwidth=1.3];
+  user [label="Користувач\n(start, tx_data)", fillcolor="#fff4e0", color="#b26a00"];
+  subgraph cluster_m { label="spi_master (верхній рівень)"; fontname="DejaVu Sans"; fontsize=16; color="#777777"; style=dashed;
+    tx  [label="spi_master_tx\nFSM + зсувний регістр Tx"];
+    clk [label="spi_clk_gen\nдільник f_clk / (2·CLK_DIV)\nстроби фронтів"];
+    rx  [label="spi_master_rx\nсинхронізатор MISO +\nзсувний регістр Rx"];
+  }
+  slave [label="SPI Slave\n(зовнішній пристрій)", fillcolor="#fff4e0", color="#b26a00"];
+  user -> tx [label="start, tx_data"];
+  tx -> user [label="busy, done", constraint=false];
+  tx -> clk [label="clk_en"];
+  clk -> tx [label="lead_stb,\ntrail_stb"];
+  clk -> rx [label="sample_en"];
+  rx -> user [label="rx_data, rx_valid", constraint=false];
+  tx -> slave [label="MOSI, SS_N"];
+  clk -> slave [label="SCK"];
+  slave -> rx [label="MISO"];
+}
