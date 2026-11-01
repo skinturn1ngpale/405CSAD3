@@ -1,0 +1,19 @@
+digraph fsm {
+  rankdir=TB; bgcolor="white"; nodesep=1.2; ranksep=0.9;
+  graph [fontname="DejaVu Sans"]; node [fontname="DejaVu Sans", fontsize=17, shape=circle, style=filled, fillcolor="#e8f0fe", color="#1a4f8b", width=1.6, penwidth=1.6];
+  edge [fontname="DejaVu Sans", fontsize=15, color="#333333", penwidth=1.5];
+  start [shape=point, width=0.15, fillcolor=black, color=black];
+  S_IDLE  [label="S_IDLE\nss_n = 1\nclk_en = 0"];
+  S_SETUP [label="S_SETUP\nss_n = 0\nclk_en = 0"];
+  S_SHIFT [label="S_SHIFT\nclk_en = 1\nSCK тактується"];
+  S_HOLD  [label="S_HOLD\nclk_en = 0\nSCK у спокої"];
+  start -> S_IDLE [label="rst = 1"];
+  S_IDLE -> S_IDLE [label="start = 0"];
+  S_IDLE -> S_SETUP [label="start = 1:\nss_n <= 0,\nзавантаження\nshreg, bit_cnt = 0"];
+  S_SETUP -> S_SETUP [label="tmr < CLK_DIV-1\ntmr++"];
+  S_SETUP -> S_SHIFT [label="tmr = CLK_DIV-1"];
+  S_SHIFT -> S_SHIFT [label="shift_stb: mosi <= MSB,\nзсув shreg\ntrail_stb: bit_cnt++"];
+  S_SHIFT -> S_HOLD [label="trail_stb = 1 і\nbit_cnt = N-1\n(віддано N бітів)"];
+  S_HOLD -> S_HOLD [label="tmr < CLK_DIV-1\ntmr++"];
+  S_HOLD -> S_IDLE [label="tmr = CLK_DIV-1:\nss_n <= 1,\ndone <= 1"];
+}

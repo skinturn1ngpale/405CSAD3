@@ -1,0 +1,11 @@
+tb/tb_spi_master.vhd:173:5:@708339ps:(report note): === SPI Master: mode CPOL=1 CPHA=0 ===
+tb/tb_spi_master.vhd:203:7:@9959413ps:(report note): Transfer #0: MOSI=0xA5 -> slave=0xA5 | MISO=0x5A -> master=0x5A
+tb/tb_spi_master.vhd:203:7:@19459489ps:(report note): Transfer #1: MOSI=0x3C -> slave=0x3C | MISO=0xC3 -> master=0xC3
+tb/tb_spi_master.vhd:203:7:@28959565ps:(report note): Transfer #2: MOSI=0xFF -> slave=0xFF | MISO=0x00 -> master=0x00
+tb/tb_spi_master.vhd:203:7:@38459641ps:(report note): Transfer #3: MOSI=0x00 -> slave=0x00 | MISO=0xFF -> master=0xFF
+tb/tb_spi_master.vhd:203:7:@47959717ps:(report note): Transfer #4: MOSI=0x81 -> slave=0x81 | MISO=0x7E -> master=0x7E
+tb/tb_spi_master.vhd:203:7:@57459793ps:(report note): Transfer #5: MOSI=0x5A -> slave=0x5A | MISO=0xA5 -> master=0xA5
+tb/tb_spi_master.vhd:203:7:@66959869ps:(report note): Transfer #6: MOSI=0x01 -> slave=0x01 | MISO=0x80 -> master=0x80
+tb/tb_spi_master.vhd:203:7:@76459945ps:(report note): Transfer #7: MOSI=0x80 -> slave=0x80 | MISO=0x01 -> master=0x01
+tb/tb_spi_master.vhd:213:7:@76709947ps:(report note): TEST PASSED: CPOL=1 CPHA=0, 8/8 transfers OK
+simulation finished @76709947ps
